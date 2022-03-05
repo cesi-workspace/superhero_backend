@@ -5,6 +5,7 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Getter
 public class CreateHeroDto {
@@ -25,6 +26,7 @@ public class CreateHeroDto {
     private String city;
 
     @NotNull
+    @Size(min = 1, max = 3)
     private int[] incidents;
 
 }
