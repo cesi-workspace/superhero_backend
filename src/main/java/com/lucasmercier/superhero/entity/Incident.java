@@ -2,6 +2,7 @@ package com.lucasmercier.superhero.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -36,6 +37,7 @@ public class Incident {
     private String status;
 
     @Column(name = "created_at", nullable = false)
+    @CreatedDate
     private Instant createdAt;
 
     @Column(name = "updated_at", nullable = false)

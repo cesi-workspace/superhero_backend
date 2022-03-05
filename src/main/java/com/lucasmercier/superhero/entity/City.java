@@ -21,7 +21,4 @@ public class City {
     @ManyToOne(optional = false)
     @JoinColumn(name = "location", nullable = false)
     private Location location;
-
-    @Column(name = "password", nullable = false)
-    private String password;
 }
