@@ -1,13 +1,12 @@
 package com.lucasmercier.superhero.feature.hero.controller;
 
+import com.lucasmercier.superhero.entity.Hero;
 import com.lucasmercier.superhero.feature.hero.contract.HeroServiceContract;
 import com.lucasmercier.superhero.feature.hero.dto.CreateHeroDto;
-import com.lucasmercier.superhero.entity.Hero;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -19,8 +18,17 @@ public class HeroesController {
     private final HeroServiceContract heroService;
 
     @PostMapping
-    public Hero createHero(@RequestBody @Valid CreateHeroDto hero) {
+    public Hero create(@RequestBody @Valid CreateHeroDto hero) {
         return heroService.createHero(hero);
     }
 
+    @GetMapping
+    public CollectionModel<EntityModel<Hero>> getList() {
+        return heroService.getHeroes();
+    }
+
+    @GetMapping("/{id}")
+    public EntityModel<Hero> get(@PathVariable int id) {
+        return null;
+    }
 }

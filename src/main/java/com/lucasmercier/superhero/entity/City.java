@@ -10,7 +10,7 @@ import javax.persistence.*;
         @Index(name = "FK_75", columnList = "location")
 })
 @Getter @Setter
-public class City {
+public class City implements BaseEntity {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;

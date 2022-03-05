@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "locations")
 @Getter @Setter
-public class Location {
+public class Location implements BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
