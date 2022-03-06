@@ -4,7 +4,6 @@ import com.google.common.primitives.Ints;
 import com.lucasmercier.superhero.entity.Hero;
 import com.lucasmercier.superhero.entity.IncidentType;
 import com.lucasmercier.superhero.entity.Location;
-import com.lucasmercier.superhero.entity.assembler.EntityModelAssembler;
 import com.lucasmercier.superhero.feature.common.contract.LocationRepositoryContract;
 import com.lucasmercier.superhero.feature.common.contract.OpenStreetMapServiceContract;
 import com.lucasmercier.superhero.feature.hero.contract.HeroRepositoryContract;
@@ -12,8 +11,7 @@ import com.lucasmercier.superhero.feature.hero.contract.HeroServiceContract;
 import com.lucasmercier.superhero.feature.hero.dto.CreateHeroDto;
 import com.lucasmercier.superhero.feature.incident.contract.IncidentTypeRepositoryContract;
 import lombok.RequiredArgsConstructor;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,10 +25,9 @@ public class HeroService implements HeroServiceContract {
     private final OpenStreetMapServiceContract openStreetMapService;
     private final LocationRepositoryContract locationRepository;
     private final IncidentTypeRepositoryContract incidentTypeRepository;
-    private final EntityModelAssembler<Hero> heroEntityModelAssembler;
 
     @Override
-    public EntityModel<Hero> createHero(CreateHeroDto createHeroDto) {
+    public ResponseEntity<Hero> createHero(CreateHeroDto createHeroDto) {
         Hero hero = new Hero();
         hero.setName(createHeroDto.getName());
         hero.setPhone(createHeroDto.getPhone());
@@ -43,19 +40,16 @@ public class HeroService implements HeroServiceContract {
         List<IncidentType> incidentTypes = incidentTypeRepository.findAllById(Ints.asList(createHeroDto.getIncidents()));
         hero.setIncidentTypes(Set.copyOf(incidentTypes));
 
-        return heroEntityModelAssembler.toModel(heroRepository.save(hero));
+        return ResponseEntity.created(null).body(heroRepository.save(hero));
     }
 
     @Override
-    public EntityModel<Hero> getHero(int id) {
-        Hero hero = heroRepository.findById(id).orElseThrow();
-        EntityModel<Hero> heroEntityModel = heroEntityModelAssembler.toModel(hero);
-        System.out.println(heroEntityModel);
-        return heroEntityModel;
+    public ResponseEntity<Hero> getHero(int id) {
+        return ResponseEntity.ok(heroRepository.findById(id).orElseThrow());
     }
 
     @Override
-    public CollectionModel<EntityModel<Hero>> getHeroes() {
-        return heroEntityModelAssembler.toCollectionModel(heroRepository.findAll());
+    public ResponseEntity<List<Hero>> getHeroes() {
+        return ResponseEntity.ok(heroRepository.findAll());
     }
 }

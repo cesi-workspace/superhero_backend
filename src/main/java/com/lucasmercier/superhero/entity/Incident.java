@@ -14,7 +14,7 @@ import java.time.Instant;
         @Index(name = "FK_62", columnList = "hero")
 })
 @Getter @Setter
-public class Incident implements BaseEntity {
+public class Incident {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

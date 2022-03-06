@@ -1,7 +1,5 @@
 package com.lucasmercier.superhero.entity;
 
-import com.lucasmercier.superhero.entity.assembler.ControllerLink;
-import com.lucasmercier.superhero.feature.hero.controller.HeroesController;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +10,8 @@ import java.util.Set;
 @Table(name = "heroes", indexes = {
         @Index(name = "FK_46", columnList = "location")
 })
-@ControllerLink(controller = HeroesController.class)
 @Getter @Setter
-public class Hero implements BaseEntity{
+public class Hero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

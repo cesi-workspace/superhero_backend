@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "incident_types")
 @Getter @Setter
-public class IncidentType implements BaseEntity {
+public class IncidentType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
