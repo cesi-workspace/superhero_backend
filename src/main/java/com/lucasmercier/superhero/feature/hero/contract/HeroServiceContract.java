@@ -7,7 +7,8 @@ import org.springframework.hateoas.EntityModel;
 
 public interface HeroServiceContract {
 
-    Hero createHero(CreateHeroDto createHeroDto);
+    EntityModel<Hero> createHero(CreateHeroDto createHeroDto);
+    EntityModel<Hero> getHero(int id);
     CollectionModel<EntityModel<Hero>> getHeroes();
 
 }

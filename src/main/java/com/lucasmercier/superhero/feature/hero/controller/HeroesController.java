@@ -18,7 +18,7 @@ public class HeroesController {
     private final HeroServiceContract heroService;
 
     @PostMapping
-    public Hero create(@RequestBody @Valid CreateHeroDto hero) {
+    public EntityModel<Hero> create(@RequestBody @Valid CreateHeroDto hero) {
         return heroService.createHero(hero);
     }
 
@@ -29,6 +29,6 @@ public class HeroesController {
 
     @GetMapping("/{id}")
     public EntityModel<Hero> get(@PathVariable int id) {
-        return null;
+        return heroService.getHero(id);
     }
 }

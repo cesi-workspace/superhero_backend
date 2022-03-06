@@ -30,7 +30,7 @@ public class HeroService implements HeroServiceContract {
     private final EntityModelAssembler<Hero> heroEntityModelAssembler;
 
     @Override
-    public Hero createHero(CreateHeroDto createHeroDto) {
+    public EntityModel<Hero> createHero(CreateHeroDto createHeroDto) {
         Hero hero = new Hero();
         hero.setName(createHeroDto.getName());
         hero.setPhone(createHeroDto.getPhone());
@@ -43,7 +43,15 @@ public class HeroService implements HeroServiceContract {
         List<IncidentType> incidentTypes = incidentTypeRepository.findAllById(Ints.asList(createHeroDto.getIncidents()));
         hero.setIncidentTypes(Set.copyOf(incidentTypes));
 
-        return heroRepository.save(hero);
+        return heroEntityModelAssembler.toModel(heroRepository.save(hero));
+    }
+
+    @Override
+    public EntityModel<Hero> getHero(int id) {
+        Hero hero = heroRepository.findById(id).orElseThrow();
+        EntityModel<Hero> heroEntityModel = heroEntityModelAssembler.toModel(hero);
+        System.out.println(heroEntityModel);
+        return heroEntityModel;
     }
 
     @Override
