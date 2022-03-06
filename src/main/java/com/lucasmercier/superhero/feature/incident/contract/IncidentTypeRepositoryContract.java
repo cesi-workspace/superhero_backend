@@ -7,5 +7,6 @@ import java.util.List;
 public interface IncidentTypeRepositoryContract {
 
     List<IncidentType> findAllById(Iterable<Integer> ids);
+    List<IncidentType> findAll();
 
 }
