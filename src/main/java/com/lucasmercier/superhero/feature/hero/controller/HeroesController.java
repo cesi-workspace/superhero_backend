@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/heroes")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class HeroesController {
 
