@@ -3,6 +3,7 @@ package com.lucasmercier.superhero.feature.hero.controller;
 import com.lucasmercier.superhero.entity.Hero;
 import com.lucasmercier.superhero.feature.hero.contract.HeroServiceContract;
 import com.lucasmercier.superhero.feature.hero.dto.CreateHeroDto;
+import com.lucasmercier.superhero.feature.hero.dto.FindHeroDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,4 +33,11 @@ public class HeroesController {
     public ResponseEntity<Hero> get(@PathVariable int id) {
         return heroService.getHero(id);
     }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<Hero>> search(@RequestBody FindHeroDto findHeroDto) {
+        return heroService.findHeroesByQuery(findHeroDto);
+    }
+
+
 }

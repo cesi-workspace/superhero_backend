@@ -9,6 +9,7 @@ import com.lucasmercier.superhero.feature.common.contract.OpenStreetMapServiceCo
 import com.lucasmercier.superhero.feature.hero.contract.HeroRepositoryContract;
 import com.lucasmercier.superhero.feature.hero.contract.HeroServiceContract;
 import com.lucasmercier.superhero.feature.hero.dto.CreateHeroDto;
+import com.lucasmercier.superhero.feature.hero.dto.FindHeroDto;
 import com.lucasmercier.superhero.feature.incident.contract.IncidentTypeRepositoryContract;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +52,18 @@ public class HeroService implements HeroServiceContract {
     @Override
     public ResponseEntity<List<Hero>> getHeroes() {
         return ResponseEntity.ok(heroRepository.findAll());
+    }
+
+    @Override
+    public ResponseEntity<List<Hero>> findHeroesByQuery(FindHeroDto findHeroDto) {
+        List<Hero> heroes = heroRepository.findAll()
+                .stream()
+                .filter(hero ->
+                        hero.getName().contains(findHeroDto.getQuery()) ||
+                        hero.getIncidentTypes()
+                                .stream()
+                                .anyMatch(incidentType -> incidentType.getName().contains(findHeroDto.getQuery())))
+                .toList();
+        return ResponseEntity.ok(heroes);
     }
 }
