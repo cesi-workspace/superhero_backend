@@ -19,10 +19,7 @@ public class CreateHeroDto {
     )
     private String phone;
 
-    @Pattern(
-            regexp = "^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$",
-            message = "ne correspond pas au nom d'une ville"
-    )
+    @NotBlank
     private String city;
 
     @NotNull
